@@ -195,6 +195,18 @@ class BotoWrapper:
         resp = self.ecs_client.stop_task(task=task, cluster=cluster, reason=reason)
         return resp
 
+    def restart_service(self,
+                        service,
+                        response,
+                        cluster='defualt',
+                        reason='Restarted with ecsctl.'):
+        resp = self.ecs_client.update_service(service=service, 
+                                              cluster=cluster,
+                                              response=response,
+                                              reason=reason)
+        return resp
+
+
     def drain_node(self, node, cluster='default'):
         resp = self.ecs_client.update_container_instances_state(
             cluster=cluster,
